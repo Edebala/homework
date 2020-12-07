@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int* readArray(char* in,int *n){
 	FILE *fi = fopen(in,"r");
@@ -11,6 +12,32 @@ int* readArray(char* in,int *n){
 	int *a = (int*) malloc((*n) *sizeof(int));
 	for(int i=0;i<*n;i++)
 		fscanf(fi,"%i ",&a[i]);
+	return a;
+}
+
+char* readCharArray(char* in,int *n){
+	FILE *fi = fopen(in,"r");
+	if(fi == 0){
+		printf("Error\n");	
+		return 0;
+	}
+	fscanf(fi,"%i",n);
+	char *a = (char*) malloc((*n) *sizeof(char));
+	for(int i=0;i<*n;i++)
+		fscanf(fi,"%c ",&a[i]);
+	return a;
+}
+
+char** readStringArray(char* in,int *n){
+	FILE *fi = fopen(in,"r");
+	if(fi == 0){
+		printf("Error\n");	
+		return 0;
+	}
+	fscanf(fi,"%i",n);
+	char **a = (char**) malloc((*n) *sizeof(char*));
+	for(int i=0;i<*n;i++)
+		fscanf(fi,"%s ",&a[i]);
 	return a;
 }
 
@@ -31,8 +58,7 @@ int** readArrayTwo(char* in,int *n,int *m){
 	}
 	return a;
 }
-
-void print(int n,int *a, char* out){
+void printStringArray(int n,const void *a, char* out){
 	if(a == 0){
 		printf("Empty\n");
 		return;	
@@ -40,18 +66,18 @@ void print(int n,int *a, char* out){
 
 	if(out == 0){
 		for(int i=0;i<n;i++)
-			printf("%i\t",a[i]);
+			printf("%s ",((char**)a)[i]);
 		printf("\n");
 	}
 	else{
 		FILE *fo = fopen(out,"w");
 		for(int i=0;i<n;i++)
-			fprintf(fo,"%i\t",a[i]);
+			fprintf(fo,"%s ",((char**)a)[i]);
 		fclose(fo);
 	}
 }
 
-void printTwo(int n, int m,int **a,char* out){
+void printCharArray(int n,const void *a, char* out){
 	if(a == 0){
 		printf("Empty\n");
 		return;	
@@ -59,7 +85,45 @@ void printTwo(int n, int m,int **a,char* out){
 
 	if(out == 0){
 		for(int i=0;i<n;i++)
-			print(m,a[i],0);
+			printf("%c ",((char*)a)[i]);
+		printf("\n");
+	}
+	else{
+		FILE *fo = fopen(out,"w");
+		for(int i=0;i<n;i++)
+			fprintf(fo,"%c ",((char*)a)[i]);
+		fclose(fo);
+	}
+}
+
+void printIntArray(int n,const void *a, char* out){
+	if(a == 0){
+		printf("Empty\n");
+		return;	
+	}
+
+	if(out == 0){
+		for(int i=0;i<n;i++)
+			printf("%i ",((int*)a)[i]);
+		printf("\n");
+	}
+	else{
+		FILE *fo = fopen(out,"w");
+		for(int i=0;i<n;i++)
+			fprintf(fo,"%i ",((int*)a)[i]);
+		fclose(fo);
+	}
+}
+
+void printIntArrayTwo(int n, int m,int **a,char* out){
+	if(a == 0){
+		printf("Empty\n");
+		return;	
+	}
+
+	if(out == 0){
+		for(int i=0;i<n;i++)
+			printIntArray(m,(void*)a[i],0);
 		printf("\n");
 	}
 	else{
