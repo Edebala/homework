@@ -124,6 +124,25 @@ void printCharArray(int n,const void *a, char* out){
 	}
 }
 
+void printIntArrayHex(int n,const void *a, char* out){
+	if(a == 0){
+		printf("Empty\n");
+		return;	
+	}
+
+	if(out == 0){
+		for(int i=0;i<n;i++)
+			printf("%6.0x ",((unsigned*)a)[i]);
+		printf("\n");
+	}
+	else{
+		FILE *fo = fopen(out,"w");
+		for(int i=0;i<n;i++)
+			fprintf(fo,"%6.0x ",((unsigned*)a)[i]);
+		fclose(fo);
+	}
+}
+
 void printIntArray(int n,const void *a, char* out){
 	if(a == 0){
 		printf("Empty\n");
@@ -132,13 +151,32 @@ void printIntArray(int n,const void *a, char* out){
 
 	if(out == 0){
 		for(int i=0;i<n;i++)
-			printf("%i ",((int*)a)[i]);
+			printf("%6.0i ",((unsigned*)a)[i]);
 		printf("\n");
 	}
 	else{
 		FILE *fo = fopen(out,"w");
 		for(int i=0;i<n;i++)
-			fprintf(fo,"%i ",((int*)a)[i]);
+			fprintf(fo,"%6.0i ",((unsigned*)a)[i]);
+		fclose(fo);
+	}
+}
+
+void printUnsignedArray(int n,const void *a, char* out){
+	if(a == 0){
+		printf("Empty\n");
+		return;	
+	}
+
+	if(out == 0){
+		for(int i=0;i<n;i++)
+			printf("%u ",((int*)a)[i]);
+		printf("\n");
+	}
+	else{
+		FILE *fo = fopen(out,"w");
+		for(int i=0;i<n;i++)
+			fprintf(fo,"%u ",((int*)a)[i]);
 		fclose(fo);
 	}
 }
@@ -163,7 +201,51 @@ void printFloatArray(int n,const void *a, char* out){
 	}
 }
 
-void printIntArrayTwo(int n, int m,int **a,char* out){
+void printUnsignedArrayTwo(int n, int m,const void **a,char* out){
+	if(a == 0){
+		printf("Empty\n");
+		return;	
+	}
+
+	if(out == 0){
+		for(int i=0;i<n;i++)
+			printUnsignedArray(m,a[i],0);
+		printf("\n");
+	}
+	else{
+		FILE *fo = fopen(out,"w");
+		for(int i=0;i<n;i++){
+			for(int j=0;j<m;j++)
+				fprintf(fo,"%u ",((unsigned **)a)[i][j]);
+			fprintf(fo,"\n");
+		}
+		fclose(fo);
+	}
+}
+
+void printIntArrayTwoHex(int n, int m,const void **a,char* out){
+	if(a == 0){
+		printf("Empty\n");
+		return;	
+	}
+
+	if(out == 0){
+		for(int i=0;i<n;i++)
+			printIntArrayHex(m,(void*)a[i],0);
+		printf("\n");
+	}
+	else{
+		FILE *fo = fopen(out,"w");
+		for(int i=0;i<n;i++){
+			for(int j=0;j<m;j++)
+				fprintf(fo,"%x ",((int **)a)[i][j]);
+			fprintf(fo,"\n");
+		}
+		fclose(fo);
+	}
+}
+
+void printIntArrayTwo(int n, int m,const void **a,char* out){
 	if(a == 0){
 		printf("Empty\n");
 		return;	
@@ -178,7 +260,7 @@ void printIntArrayTwo(int n, int m,int **a,char* out){
 		FILE *fo = fopen(out,"w");
 		for(int i=0;i<n;i++){
 			for(int j=0;j<m;j++)
-				fprintf(fo,"%i ",a[i][j]);
+				fprintf(fo,"%i ",((int **)a)[i][j]);
 			fprintf(fo,"\n");
 		}
 		fclose(fo);
@@ -238,13 +320,15 @@ void printSpiral(int n,int m,int **a)
 	
 unsigned** parity(int n,int m,int **a)
 {
+	int tmp;
 	unsigned **prt = (unsigned**) malloc(n*sizeof(unsigned*));
 	for(int i=0;i<n;i++){
 		prt[i] = (int*) calloc(m, sizeof(int));
 		for(int j=0;j<m;j++){
-			while(a[i][j] !=0){
-				prt[i][j] += a[i][j]%2;
-				a[i][j]/=2;
+				tmp = a[i][j];
+			while(tmp !=0){
+				prt[i][j] += tmp%2;
+				tmp/=2;
 			}
 		}
 	}
@@ -253,12 +337,14 @@ unsigned** parity(int n,int m,int **a)
 
 unsigned* rowParity(int n,int m,int **a)
 {
+	int tmp;
 	unsigned *prt = (unsigned*) calloc(n,sizeof(unsigned));
 	for(int i=0;i<n;i++){
 		for(int j=0;j<m;j++){
-			while(a[i][j] !=0){
-				prt[i] += a[i][j]%2;
-				a[i][j]/=2;
+				tmp = a[i][j];
+			while(tmp !=0){
+				prt[i] += tmp%2;
+				tmp/=2;
 			}
 		}
 	}
