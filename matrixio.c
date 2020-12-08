@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
+#include "matrixio.h"
 
 float* readFloatArray(char* in,int *n){
 	FILE *fi = fopen(in,"r");
@@ -50,7 +52,8 @@ char** readStringArray(char* in,int *n){
 	fscanf(fi,"%i",n);
 	char **a = (char**) malloc((*n) *sizeof(char*));
 	for(int i=0;i<*n;i++)
-		fscanf(fi,"%s ",&a[i]);
+		fscanf(fi,"%s ",a[i]);
+	printStringArray(*n,(const void*)a,0);
 	return a;
 }
 
@@ -71,12 +74,24 @@ int** readArrayTwo(char* in,int *n,int *m){
 	}
 	return a;
 }
+
+int** generateIntArrayTwo(int n, int m)
+{
+	int **a = (int**) malloc((n) *sizeof(int*));
+	for(int i=0;i<n;i++){
+		a[i] = (int*) malloc((m) * sizeof(int));
+		for(int j=0;j<m;j++){
+			a[i][j] = rand();
+		}
+	}
+	return a;
+}
+
 void printStringArray(int n,const void *a, char* out){
 	if(a == 0){
 		printf("Empty\n");
 		return;	
 	}
-
 	if(out == 0){
 		for(int i=0;i<n;i++)
 			printf("%s ",((char**)a)[i]);
@@ -219,4 +234,33 @@ void printSpiral(int n,int m,int **a)
 		printf("%i ",a[i][j]);
 	}
 	putchar('\n');
+}
+	
+unsigned** parity(int n,int m,int **a)
+{
+	unsigned **prt = (unsigned**) malloc(n*sizeof(unsigned*));
+	for(int i=0;i<n;i++){
+		prt[i] = (int*) calloc(m, sizeof(int));
+		for(int j=0;j<m;j++){
+			while(a[i][j] !=0){
+				prt[i][j] += a[i][j]%2;
+				a[i][j]/=2;
+			}
+		}
+	}
+	return prt;
+}
+
+unsigned* rowParity(int n,int m,int **a)
+{
+	unsigned *prt = (unsigned*) calloc(n,sizeof(unsigned));
+	for(int i=0;i<n;i++){
+		for(int j=0;j<m;j++){
+			while(a[i][j] !=0){
+				prt[i] += a[i][j]%2;
+				a[i][j]/=2;
+			}
+		}
+	}
+	return prt;
 }

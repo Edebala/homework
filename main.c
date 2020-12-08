@@ -7,9 +7,8 @@
 
 int main()
 {
-	first("in.txt",FLOAT);	
-	scanf(" ");
-	first("in2.txt",CHAR);		
-	first("in3.txt",STRING);		
+	//first("in.txt",FLOAT);	
+	//first("in2.txt",CHAR);		
+	second();
 	return 0;
 }

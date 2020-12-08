@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 #include "lab11hw.h"
 #include "compare.h"
 #include "matrixio.h"
@@ -18,13 +19,13 @@ void divisible(char* input)
 	printf("%i %f %i\n",sum, average, product);	
 }
 
-
 void first(char *source,int type)
 {
 	int size,n;
 	void *data,*input;
 	int (*compare)(const void*,const void*);
 	void (*print)(int,const void*,char*);
+	
 	switch(type)
 	{
 		case CHAR:{
@@ -55,11 +56,12 @@ void first(char *source,int type)
 			break;
 		}
 		case STRING:{
-			data = readStringArray(source,&n);
-			input = malloc(sizeof(char*));
-			scanf("%s", ((char*)input));
 			compare = stringCompare;
 			print = printStringArray;
+			data = readStringArray(source,&n);
+			print(n,data,0);
+			input = malloc(sizeof(char*));
+			scanf("%s", *((char*)input));
 			size = sizeof(char*);
 			break;
 		}
@@ -71,7 +73,13 @@ void first(char *source,int type)
 	printf("A beirt valami resze a tombnek\n");
 	}
 	else{
-		printf("A beirt valami nem resze a tombnek\n");
+		printf("A beirt cucc nem eleme a tombnek\n");
 	}
 	free(data);
+}
+
+void second(int n,int m)
+{
+	int **a;
+
 }
