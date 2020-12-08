@@ -2,7 +2,20 @@
 #include <stdlib.h>
 #include <string.h>
 
-int* readArray(char* in,int *n){
+float* readFloatArray(char* in,int *n){
+	FILE *fi = fopen(in,"r");
+	if(fi == 0){
+		printf("Error\n");	
+		return 0;
+	}
+	fscanf(fi,"%i",n);
+	float *a = (float*) malloc((*n) *sizeof(float));
+	for(int i=0;i<*n;i++)
+		fscanf(fi,"%f ",&a[i]);
+	return a;
+}
+
+int* readIntArray(char* in,int *n){
 	FILE *fi = fopen(in,"r");
 	if(fi == 0){
 		printf("Error\n");	
@@ -111,6 +124,26 @@ void printIntArray(int n,const void *a, char* out){
 		FILE *fo = fopen(out,"w");
 		for(int i=0;i<n;i++)
 			fprintf(fo,"%i ",((int*)a)[i]);
+		fclose(fo);
+	}
+}
+
+void printFloatArray(int n,const void *a, char* out){
+	if(a == 0){
+		printf("Empty\n");
+		return;	
+	}
+
+	if(out == 0){
+		for(int i=0;i<n;i++)
+			printf("%f ",((float*)a)[i]);
+		printf("\n");
+	}
+	else{
+		FILE *fo = fopen(out,"w");
+		for(int i=0;i<n;i++)
+			fprintf(fo,"%0.2f ",((float*)a)[i]);
+
 		fclose(fo);
 	}
 }
