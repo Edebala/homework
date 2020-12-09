@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <limits.h>
+#include <string.h>
 #include "lab11hw.h"
 #include "compare.h"
 #include "matrixio.h"
@@ -62,12 +63,14 @@ void first(char *source,int type)
 			break;
 		}
 		case STRING:{
+			char buffer[32];
 			compare = stringCompare;
 			print = printStringArray;
 			data = readStringArray(source,&n);
 			print(n,data,0);
-			input = malloc(sizeof(char*));
-			scanf("%s", *((char*)input));
+			scanf("%s", buffer);
+			input = malloc(strlen(buffer)*sizeof(char));
+			strcpy(input,buffer);
 			size = sizeof(char*);
 			break;
 		}
@@ -79,7 +82,7 @@ void first(char *source,int type)
 	printf("A beirt valami resze a tombnek\n");
 	}
 	else{
-		printf("A beirt cucc nem eleme a tombnek\n");
+		printf("A beirt valami nem eleme a tombnek\n");
 	}
 	free(data);
 	free(input);

@@ -10,9 +10,12 @@
 int main()
 {
 	srand(time(0));
-	//first("in.txt",FLOAT);	
-	//first("in2.txt",CHAR);		
+	first("in.txt",FLOAT);	
+	scanf(" ");
+	first("in2.txt",CHAR);		
+	scanf(" ");
+	first("in3.txt",STRING);		
 	//second(6,7);
-	third(6,7);
+	//third(6,7);
 	return 0;
 }

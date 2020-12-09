@@ -49,11 +49,14 @@ char** readStringArray(char* in,int *n){
 		printf("Error\n");	
 		return 0;
 	}
+	char buffer[32];
 	fscanf(fi,"%i",n);
 	char **a = (char**) malloc((*n) *sizeof(char*));
-	for(int i=0;i<*n;i++)
-		fscanf(fi,"%s ",a[i]);
-	printStringArray(*n,(const void*)a,0);
+	for(int i=0;i<*n;i++){
+		fscanf(fi,"%s ",buffer);
+		a[i] = (char*) malloc((strlen(buffer)) * sizeof(char));
+		strcpy(a[i],buffer);
+	}
 	return a;
 }
 
