@@ -123,9 +123,9 @@ void third(int n,int m)
 			mx = max(a[x][y+1],mx); 
 		if(a[x][y] >= mx)break;
 		if(x>0   && a[x-1][y] == mx)x--;
-		if(y<m-1 && a[x][y+1] == mx)y++;
-		if(x<n-1 && a[x+1][y] == mx)x++;
-		if(y>0   && a[x][y-1] == mx)y--;
+		else if(y<m-1 && a[x][y+1] == mx)y++;
+		else if(x<n-1 && a[x+1][y] == mx)x++;
+		else if(y>0   && a[x][y-1] == mx)y--;
 	}
 	for(int i=0;i<n;i++)
 		free(a[i]);
