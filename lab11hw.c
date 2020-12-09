@@ -131,3 +131,21 @@ void third(int n,int m)
 		free(a[i]);
 	free(a);
 }
+
+void mountain(char* source)
+{
+	int *a,i, n, mx = 0,mpos=0, curr = 0;
+	a = readIntArray(source,&n);
+	for(i = 1;i<n;i++)
+	{
+		if(a[i] > a[i-1])curr++;
+		if(curr>mx){
+			mx = curr;
+			mpos = i - mx;
+		}
+		if(a[i]<a[i-1])curr=0;
+		if(curr==0 && n-i< mx)break;
+	}
+	printf("%i %i\n", mpos+1, mpos+mx+1);
+	free(a);
+}

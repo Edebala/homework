@@ -11,7 +11,7 @@ int intCompare(const void* a,const void* b)
 }
 int floatCompare(const void* a,const void* b)
 {
-		float c = *((float*)a) - *((float*)b);
+	float c = *((float*)a) - *((float*)b);
 	return abs(c)>0.0001?c:0;
 }
 int stringCompare(const void* a,const void* b)

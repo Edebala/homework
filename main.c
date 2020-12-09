@@ -9,13 +9,14 @@
 
 int main()
 {
-	srand(time(0));
-	first("in.txt",FLOAT);	
-	scanf(" ");
-	first("in2.txt",CHAR);		
-	scanf(" ");
-	first("in3.txt",STRING);		
+	//srand(time(0));
+	//first("in.txt",FLOAT);	
+	//scanf(" ");
+	//first("in2.txt",CHAR);		
+	//scanf(" ");
+	//first("in3.txt",STRING);		
 	//second(6,7);
 	//third(6,7);
+	mountain("mnt.txt");
 	return 0;
 }
