@@ -5,18 +5,16 @@
 #include "matrixio.h"
 #include "compare.h"
 #include "lab11hw.h"
-
+#include "lab12hw.h"
 
 int main()
 {
-	//srand(time(0));
-	//first("in.txt",FLOAT);	
-	//scanf(" ");
-	//first("in2.txt",CHAR);		
-	//scanf(" ");
-	//first("in3.txt",STRING);		
-	//second(6,7);
-	//third(6,7);
-	mountain("mnt.txt");
+	srand(time(0));
+	int **a, n = 6;
+	a = createParking(&n);
+	showParking(n,a);
+	for(int i=0;i<n;i++)
+		free(a[i]);
+	free(a);
 	return 0;
 }

@@ -84,7 +84,7 @@ int** generateIntArrayTwo(int n, int m)
 	for(int i=0;i<n;i++){
 		a[i] = (int*) malloc((m) * sizeof(int));
 		for(int j=0;j<m;j++){
-			a[i][j] = rand();
+			a[i][j] = rand()%100;
 		}
 	}
 	return a;
